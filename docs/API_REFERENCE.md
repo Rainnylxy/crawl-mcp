@@ -6,26 +6,26 @@ Complete reference for all MCP tools available in the Crawl4AI MCP Server.
 
 ### Choose the Right Tool for Your Task
 
-| **Use Case** | **Recommended Tool** | **Key Features** |
-|-------------|---------------------|------------------|
-| Single webpage | `crawl_url` | Basic crawling, JS support |
-| Multiple pages (up to 10) | `deep_crawl_site` | Site mapping, link following |
-| Search + Crawling | `search_and_crawl` | Google search + auto-crawl |
-| Difficult sites | `crawl_url_with_fallback` | Multiple retry strategies |
-| Structured data | `extract_structured_data` | CSS/LLM schemas |
-| Intelligent extraction | `intelligent_extract` | Goal-based, filter-aware extraction |
-| Entity extraction | `extract_entities` | Emails, phones, URLs, dates, IPs, prices |
-| File processing | `process_file` | PDF, Office, ZIP conversion |
-| Large content | `enhanced_process_large_content` | Chunking and filtering strategies |
-| YouTube transcript | `extract_youtube_transcript` | Subtitle extraction |
-| YouTube comments | `extract_youtube_comments` | Comment extraction with sorting |
-| YouTube transcripts (batch) | `batch_extract_youtube_transcripts` | Up to 3 videos at once |
-| Video metadata | `get_youtube_video_info` | Title, description, summary |
-| Batch crawling | `batch_crawl` | Up to 3 URLs concurrently |
-| Multi-URL with config | `multi_url_crawl` | Up to 5 URLs, per-URL config |
-| Batch search | `batch_search_google` | Up to 3 queries concurrently |
-| Search genres | `get_search_genres` | List available genre filters |
-| Supported file formats | `get_supported_file_formats` | List supported formats |
+| **Use Case**                | **Recommended Tool**                | **Key Features**                         |
+| --------------------------- | ----------------------------------- | ---------------------------------------- |
+| Single webpage              | `crawl_url`                         | Basic crawling, JS support               |
+| Multiple pages (up to 10)   | `deep_crawl_site`                   | Site mapping, link following             |
+| Search + Crawling           | `search_and_crawl`                  | Google search + auto-crawl               |
+| Difficult sites             | `crawl_url_with_fallback`           | Multiple retry strategies                |
+| Structured data             | `extract_structured_data`           | CSS/LLM schemas                          |
+| Intelligent extraction      | `intelligent_extract`               | Goal-based, filter-aware extraction      |
+| Entity extraction           | `extract_entities`                  | Emails, phones, URLs, dates, IPs, prices |
+| File processing             | `process_file`                      | PDF, Office, ZIP conversion              |
+| Large content               | `enhanced_process_large_content`    | Chunking and filtering strategies        |
+| YouTube transcript          | `extract_youtube_transcript`        | Subtitle extraction                      |
+| YouTube comments            | `extract_youtube_comments`          | Comment extraction with sorting          |
+| YouTube transcripts (batch) | `batch_extract_youtube_transcripts` | Up to 3 videos at once                   |
+| Video metadata              | `get_youtube_video_info`            | Title, description, summary              |
+| Batch crawling              | `batch_crawl`                       | Up to 3 URLs concurrently                |
+| Multi-URL with config       | `multi_url_crawl`                   | Up to 5 URLs, per-URL config             |
+| Batch search                | `batch_search_google`               | Up to 3 queries concurrently             |
+| Search genres               | `get_search_genres`                 | List available genre filters             |
+| Supported file formats      | `get_supported_file_formats`        | List supported formats                   |
 
 ### Performance Guidelines
 
@@ -38,11 +38,13 @@ Complete reference for all MCP tools available in the Crawl4AI MCP Server.
 ### Best Practices
 
 **For JavaScript-Heavy Sites:**
+
 - Always use `wait_for_js: true`
 - Increase timeout to 30-60 seconds
 - Use `wait_for_selector` for specific elements
 
 **For AI Features:**
+
 - Use `extract_structured_data` with LLM mode for semantic extraction
 - Fallback to CSS extraction if LLM unavailable
 - Customize extraction schemas based on needs
@@ -52,17 +54,20 @@ Complete reference for all MCP tools available in the Crawl4AI MCP Server.
 Every information-gathering tool marked with 💾 below accepts three optional parameters that write the full fetched result to disk and return a slim, metadata-only response. This lets an agent fetch huge pages, long transcripts, or whole batches and read them back from a file on demand, instead of spending its context window on the raw payload.
 
 **Parameters:**
+
 - `output_path` (str): Absolute path to write the result to. `None` or `""` skips persistence (default: `""`). Single-file tools expect a **file** path (extension auto-added when omitted); batch tools expect a **directory** path and write one file per item plus an `index.json`.
 - `include_content_in_response` (bool): When `true`, the content is also returned inline (still subject to any `content_limit`/`content_offset`/`max_content_per_page` slicing). When `false` (default), only metadata and the file path are returned.
 - `overwrite` (bool): Overwrite existing output files (default: `false`). For single-file tools this guards the file at `output_path`; for batch tools it guards the per-item files and `index.json` inside the directory (a regular file sitting at a batch `output_path` is always rejected).
 
 **Behavior:**
+
 - Writes are atomic (temp file + `os.replace`); parent directories are created automatically.
 - The full, unsliced payload is persisted **before** any slicing or truncation, so the on-disk copy is always complete even when the response is sliced.
 - Each markdown file starts with a YAML frontmatter block (`url`, `title`, `fetched_at`, `source_tool`) so the artifact is self-describing.
 - Batch (directory) tools skip per-item persistence for items that report `success=false`; those items still appear in `index.json` with a null output path (`file: null` for `deep_crawl_site`/`search_and_crawl`/`batch_extract_youtube_transcripts`, `output_file: null` for `batch_crawl`/`multi_url_crawl`).
 
 **Tools that support persistence:**
+
 - Single-file (`output_path` is a file): `crawl_url`, `crawl_url_with_fallback`, `extract_structured_data`, `intelligent_extract`, `extract_entities`, `process_file`, `enhanced_process_large_content`, `extract_youtube_transcript`, `extract_youtube_comments`, `get_youtube_video_info`, `search_google`, `batch_search_google`
 - Directory/batch (`output_path` is a directory): `deep_crawl_site`, `search_and_crawl`, `batch_crawl`, `multi_url_crawl`, `batch_extract_youtube_transcripts`
 
@@ -73,6 +78,7 @@ Every information-gathering tool marked with 💾 below accepts three optional p
 Web crawling with JavaScript support, screenshot capture, and optional content summarization.
 
 **Parameters:**
+
 - `url` (str): URL to crawl
 - `css_selector` (Optional[str]): CSS selector for targeted extraction (default: None)
 - `extract_media` (bool): Extract images and videos (default: False)
@@ -88,6 +94,7 @@ Web crawling with JavaScript support, screenshot capture, and optional content s
 - `content_offset` (int): Start position for content retrieval, 0-indexed (default: 0)
 
 **Response Behavior:**
+
 - By default, returns markdown content only to reduce token usage
 - Set `include_cleaned_html=True` to also receive cleaned HTML content
 - Token limit: 25000 tokens (automatically truncated with recommendations if exceeded)
@@ -97,12 +104,13 @@ Web crawling with JavaScript support, screenshot capture, and optional content s
 Dedicated tool for comprehensive site mapping and recursive crawling.
 
 **Parameters:**
+
 - `url`: Starting URL
 - `max_depth`: Maximum crawling depth (default: 2, recommended: 1-3)
 - `max_pages`: Maximum number of pages to crawl (default: 5, max: 10)
 - `crawl_strategy`: Crawling strategy ('bfs', 'dfs', 'best_first')
 - `include_external`: Include external links in crawl
-- `url_pattern`: URL filter pattern (e.g., '*docs*', '*blog*')
+- `url_pattern`: URL filter pattern (e.g., '_docs_', '_blog_')
 - `score_threshold`: Minimum relevance score (0.0-1.0)
 - `extract_media`: Extract images and videos from pages
 - `base_timeout`: Base timeout per page in seconds
@@ -112,6 +120,7 @@ Dedicated tool for comprehensive site mapping and recursive crawling.
 Crawl with fallback strategies for anti-bot sites. Use content_offset/content_limit for pagination.
 
 **Parameters:**
+
 - `url` (str): URL to crawl
 - `css_selector` (Optional[str]): CSS selector (default: None)
 - `extract_media` (bool): Extract media (default: False)
@@ -131,6 +140,7 @@ Crawl with fallback strategies for anti-bot sites. Use content_offset/content_li
 Traditional structured data extraction using CSS selectors or LLM schemas.
 
 **Parameters:**
+
 - `url`: Target URL
 - `extraction_type`: Extraction method ('css', 'llm', 'table')
 - `css_selectors`: CSS selectors for targeted extraction
@@ -146,6 +156,7 @@ Traditional structured data extraction using CSS selectors or LLM schemas.
 Goal-based content extraction with configurable filtering and optional LLM enrichment.
 
 **Parameters:**
+
 - `url`: Target URL
 - `extraction_goal`: Natural language description of what to extract
 - `content_filter`: Filter strategy ('bm25', 'pruning', 'llm')
@@ -161,6 +172,7 @@ Goal-based content extraction with configurable filtering and optional LLM enric
 Extract specific entity types from a URL using pattern matching or LLM.
 
 **Parameters:**
+
 - `url`: Target URL
 - `entity_types` (List): Entity types to extract — supported values: 'email', 'phone', 'url', 'date', 'ip', 'price'
 - `custom_patterns`: Custom regex patterns for entity extraction
@@ -177,6 +189,7 @@ Extract specific entity types from a URL using pattern matching or LLM.
 Convert various file formats to Markdown using Microsoft MarkItDown.
 
 **Parameters:**
+
 - `url`: File URL (PDF, Office, ZIP, etc.)
 - `max_size_mb`: Maximum file size limit (default: 100MB)
 - `extract_all_from_zip`: Extract all files from ZIP archives
@@ -190,6 +203,7 @@ Convert various file formats to Markdown using Microsoft MarkItDown.
 - `content_offset` (int): Start position for content retrieval, 0-indexed (default: 0)
 
 **Supported Formats:**
+
 - **PDF**: .pdf
 - **Microsoft Office**: .docx, .pptx, .xlsx, .xls
 - **Archives**: .zip
@@ -205,6 +219,7 @@ Returns the list of supported file formats and their capabilities. No parameters
 Process large content with advanced chunking and filtering strategies.
 
 **Parameters:**
+
 - `url`: Target URL or file URL
 - `chunking_strategy`: How to split content ('topic', 'sentence', 'overlap', 'regex')
 - `filtering_strategy`: How to filter chunks ('bm25', 'pruning', 'llm')
@@ -224,6 +239,7 @@ Process large content with advanced chunking and filtering strategies.
 Extract transcripts from YouTube videos with language preferences and optional translation.
 
 **Parameters:**
+
 - `url`: YouTube video URL
 - `languages`: Preferred languages in order of preference (default: ["ja", "en"])
 - `translate_to`: Target language for translation (optional)
@@ -246,6 +262,7 @@ Extract transcripts from YouTube videos with language preferences and optional t
 Extract and sort comments from a YouTube video.
 
 **Parameters:**
+
 - `url`: YouTube video URL
 - `sort_by`: Comment sort order ('popular' or 'recent')
 - `max_comments`: Maximum number of comments to retrieve (1-1000, default: 300)
@@ -259,6 +276,7 @@ Extract and sort comments from a YouTube video.
 Extract transcripts from multiple YouTube videos in a single request (up to 3 videos).
 
 **Parameters:**
+
 - `request` (Dict): Request object with the following fields:
   - `urls`: List of YouTube video URLs (max 3)
   - `languages`: Preferred languages in order of preference
@@ -269,6 +287,7 @@ Extract transcripts from multiple YouTube videos in a single request (up to 3 vi
 Get metadata and transcript information for a YouTube video.
 
 **Parameters:**
+
 - `video_url`: YouTube video URL
 - `summarize_transcript`: Generate a summary of the transcript
 - `max_tokens`: Maximum tokens for transcript processing
@@ -278,6 +297,7 @@ Get metadata and transcript information for a YouTube video.
 - `include_timestamps`: Include timestamps in transcript output
 
 **Returns:**
+
 - Available transcript languages
 - Manual/auto-generated distinction
 - Translatable language information
@@ -289,6 +309,7 @@ Get metadata and transcript information for a YouTube video.
 Perform Google search with genre filtering and metadata extraction.
 
 **Parameters:**
+
 - `request` (Dict): Request object with the following fields:
   - `query`: Search query string
   - `num_results`: Number of results to return (1-100, default: 10)
@@ -300,6 +321,7 @@ Perform Google search with genre filtering and metadata extraction.
   - `content_offset`: Start position for content retrieval
 
 **Features:**
+
 - Automatic title and snippet extraction from search results
 - 7 optimized search genres using Google official operators
 - URL classification and domain analysis
@@ -310,6 +332,7 @@ Perform Google search with genre filtering and metadata extraction.
 Perform Google search and automatically crawl top results.
 
 **Parameters:**
+
 - `request` (Dict): Request object with the following fields:
   - `search_query` (required): Google search query
   - `crawl_top_results`: Number of top results to crawl (1-10, default: 3)
@@ -319,6 +342,7 @@ Perform Google search and automatically crawl top results.
   - `max_content_per_page`: Maximum content characters per crawled page
 
 **Returns:**
+
 - Complete search metadata and crawled content
 - Success rates and processing statistics
 - Integrated analysis of search and crawl results
@@ -328,6 +352,7 @@ Perform Google search and automatically crawl top results.
 Perform multiple Google searches concurrently (up to 3 queries).
 
 **Parameters:**
+
 - `request` (Dict): Request object with the following fields:
   - `queries`: List of search query strings (max 3)
   - `num_results_per_query`: Number of results per query
@@ -345,6 +370,7 @@ Returns the list of available search genre filters. No parameters required.
 Crawl multiple URLs concurrently in a single request (up to 3 URLs).
 
 **Parameters:**
+
 - `urls` (List): List of URLs to crawl (max 3)
 - `base_timeout`: Timeout in seconds per URL (default: 30)
 - `generate_markdown`: Generate markdown from page content
@@ -356,6 +382,7 @@ Crawl multiple URLs concurrently in a single request (up to 3 URLs).
 Crawl multiple URLs with per-URL configuration options (up to 5 URLs).
 
 **Parameters:**
+
 - `url_configurations` (Dict): Per-URL configuration map (max 5 URLs)
 - `pattern_matching`: URL pattern matching mode ('wildcard' or 'regex')
 - `default_config`: Default configuration applied to all URLs
@@ -365,11 +392,13 @@ Crawl multiple URLs with per-URL configuration options (up to 5 URLs).
 ## Tool Categories
 
 ### By Complexity
+
 - **Simple**: `crawl_url`, `process_file`, `get_youtube_video_info`, `get_search_genres`, `get_supported_file_formats`
 - **Moderate**: `deep_crawl_site`, `search_google`, `extract_youtube_transcript`, `extract_youtube_comments`, `batch_crawl`
 - **Advanced**: `extract_structured_data`, `intelligent_extract`, `extract_entities`, `search_and_crawl`, `batch_search_google`, `multi_url_crawl`, `batch_extract_youtube_transcripts`, `enhanced_process_large_content`
 
 ### By Use Case
+
 - **Content Discovery**: `search_google`, `search_and_crawl`, `batch_search_google`, `get_search_genres`
 - **Data Extraction**: `crawl_url`, `extract_structured_data`, `intelligent_extract`, `extract_entities`
 - **Media Processing**: `extract_youtube_transcript`, `extract_youtube_comments`, `batch_extract_youtube_transcripts`, `process_file`, `get_supported_file_formats`

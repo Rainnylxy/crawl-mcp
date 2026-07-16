@@ -81,6 +81,7 @@ pytest tests/ -v --cov=crawl4ai_mcp --cov-report=html
 ### Unit Tests (`tests/unit/`)
 
 Tests that do not require MCP server connection:
+
 - Configuration module tests
 - Utility function tests
 - Model validation tests
@@ -89,13 +90,13 @@ Tests that do not require MCP server connection:
 
 Tests that require MCP server connection. Organized by tool category:
 
-| File | Tools Tested |
-|------|--------------|
-| `test_youtube_tools.py` | extract_youtube_transcript, batch_extract_youtube_transcripts, get_youtube_video_info, get_youtube_api_setup_guide |
-| `test_crawl_tools.py` | crawl_url, crawl_url_with_fallback, deep_crawl_site, intelligent_extract, extract_entities, extract_structured_data |
-| `test_file_tools.py` | process_file, get_supported_file_formats, enhanced_process_large_content |
-| `test_search_tools.py` | search_google, batch_search_google, search_and_crawl, get_search_genres |
-| `test_utility_tools.py` | get_llm_config_info, batch_crawl, multi_url_crawl, get_tool_selection_guide, get_system_diagnostics |
+| File                    | Tools Tested                                                                                                        |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `test_youtube_tools.py` | extract_youtube_transcript, batch_extract_youtube_transcripts, get_youtube_video_info, get_youtube_api_setup_guide  |
+| `test_crawl_tools.py`   | crawl_url, crawl_url_with_fallback, deep_crawl_site, intelligent_extract, extract_entities, extract_structured_data |
+| `test_file_tools.py`    | process_file, get_supported_file_formats, enhanced_process_large_content                                            |
+| `test_search_tools.py`  | search_google, batch_search_google, search_and_crawl, get_search_genres                                             |
+| `test_utility_tools.py` | get_llm_config_info, batch_crawl, multi_url_crawl, get_tool_selection_guide, get_system_diagnostics                 |
 
 ## Test Markers
 
@@ -119,6 +120,7 @@ pytest -m slow
 ```
 
 Available markers:
+
 - `mcp`: Requires MCP server connection
 - `youtube`: YouTube tool tests
 - `crawl`: Crawl tool tests
@@ -200,10 +202,12 @@ class TestNewFeature:
 ## CI/CD
 
 Tests run automatically on GitHub Actions:
+
 - On push to `main` and `develop` branches
 - On pull requests to `main`
 
 The workflow:
+
 1. Runs unit tests
 2. Runs MCP tests (non-slow)
 3. Runs slow tests (continue on error)
@@ -216,6 +220,7 @@ The workflow:
 If tests fail to connect to MCP server:
 
 1. Ensure venv is set up correctly:
+
    ```bash
    python -m venv venv
    source venv/bin/activate
@@ -223,6 +228,7 @@ If tests fail to connect to MCP server:
    ```
 
 2. Verify server can start:
+
    ```bash
    python -m crawl4ai_mcp.server
    ```
@@ -235,6 +241,7 @@ If tests fail to connect to MCP server:
 ### Slow Test Timeouts
 
 For slow tests timing out, increase the timeout:
+
 ```bash
 pytest tests/mcp/ -v --timeout=300
 ```
@@ -242,6 +249,7 @@ pytest tests/mcp/ -v --timeout=300
 ### Browser Issues
 
 For crawling tests, ensure Playwright browser is installed:
+
 ```bash
 playwright install chromium
 ```

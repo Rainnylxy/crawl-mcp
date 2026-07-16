@@ -23,6 +23,8 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+.history/
+
 # Virtual Environment
 venv/
 env/
@@ -62,6 +64,7 @@ logs/
 .claude/
 tasks/
 tasks/**
+CLAUDE.md
 
 # Temporary files
 *.tmp

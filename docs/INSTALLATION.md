@@ -65,7 +65,7 @@ scripts/prepare_for_uvx_playwright.ps1
 
 ### System Preparation Features
 
-- **Cross-platform**: Linux (apt/yum/pacman/apk) + Windows  
+- **Cross-platform**: Linux (apt/yum/pacman/apk) + Windows
 - **Minimal Dependencies**: Only installs essential Playwright system libraries
 - **UVX Optimized**: Designed specifically for UVX execution environment
 - **Multi-language**: English (default) + Japanese (`CRAWL4AI_LANG=ja`)
@@ -123,11 +123,13 @@ uv sync
 ### Quick Setup (Traditional)
 
 **Linux/macOS:**
+
 ```bash
 ./setup.sh
 ```
 
 **Windows:**
+
 ```cmd
 setup_windows.bat
 ```
@@ -135,6 +137,7 @@ setup_windows.bat
 ### Manual Installation
 
 1. **Create and activate virtual environment:**
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # Linux/macOS
@@ -143,6 +146,7 @@ venv\Scripts\activate.bat  # Windows
 ```
 
 2. **Install Python dependencies:**
+
 ```bash
 pip install -r requirements.txt  # Installs pinned versions for stability
 ```
@@ -150,6 +154,7 @@ pip install -r requirements.txt  # Installs pinned versions for stability
 3. **Install Playwright browser dependencies (Linux/WSL):**
 
 **Ubuntu 24.04 LTS:**
+
 ```bash
 sudo apt update && sudo apt install -y \
   libnss3 libatk-bridge2.0-0 libxss1 libasound2t64 \
@@ -159,6 +164,7 @@ sudo apt update && sudo apt install -y \
 ```
 
 **Other Linux distributions:**
+
 ```bash
 sudo apt-get update
 sudo apt-get install libnss3 libnspr4 libasound2 libatk-bridge2.0-0 libdrm2 libgtk-3-0 libgbm1
@@ -192,16 +198,19 @@ Add to your `claude_desktop_config.json`:
 ### Configuration File Locations
 
 **Windows:**
+
 ```
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
 **macOS:**
+
 ```
 ~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
 **Linux:**
+
 ```
 ~/.config/claude-desktop/claude_desktop_config.json
 ```
@@ -221,20 +230,24 @@ If installation fails:
 ### Specific Error Solutions
 
 **ModuleNotFoundError:**
+
 - Ensure virtual environment is activated
 - Verify PYTHONPATH is set correctly
 - Install dependencies: `pip install -r requirements.txt`
 
 **Playwright Browser Errors (Ubuntu 24.04 LTS):**
+
 - Use t64 library names: `sudo apt-get install libnss3 libnspr4 libasound2t64 libgtk-3-0t64`
 - Manual installation required due to t64 transition (see Prerequisites section)
 - For WSL: Ensure X11 forwarding or headless mode
 
 **Playwright Browser Errors (Other Linux):**
+
 - Install system dependencies: `sudo apt-get install libnss3 libnspr4 libasound2`
 - For WSL: Ensure X11 forwarding or headless mode
 
 **JSON Parsing Errors:**
+
 - **Resolved**: Output suppression implemented in latest version
 - All crawl4ai verbose output is now properly suppressed
 

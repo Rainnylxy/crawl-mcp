@@ -113,11 +113,13 @@ curl -X POST "http://127.0.0.1:8001/tools/crawl_url" \
 ### Usage Methods
 
 **STDIO transport (default):**
+
 ```bash
 python -m crawl4ai_mcp.server
 ```
 
 **Claude Desktop Configuration:**
+
 ```json
 {
   "mcpServers": {
@@ -139,13 +141,13 @@ python -m crawl4ai_mcp.server
 
 ## 📊 Protocol Comparison
 
-| Feature | Pure StreamableHTTP | Legacy HTTP (SSE) | STDIO |
-|---------|---------------------|-------------------|-------|
-| Response Format | Plain JSON | Server-Sent Events | Binary |
-| Configuration Complexity | Low (URL only) | Low (URL only) | High (Process management) |
-| Debug Ease | High (curl compatible) | Medium (SSE parser needed) | Low |
-| Independence | High | High | Low |
-| Performance | High | Medium | High |
+| Feature                  | Pure StreamableHTTP    | Legacy HTTP (SSE)          | STDIO                     |
+| ------------------------ | ---------------------- | -------------------------- | ------------------------- |
+| Response Format          | Plain JSON             | Server-Sent Events         | Binary                    |
+| Configuration Complexity | Low (URL only)         | Low (URL only)             | High (Process management) |
+| Debug Ease               | High (curl compatible) | Medium (SSE parser needed) | Low                       |
+| Independence             | High                   | High                       | Low                       |
+| Performance              | High                   | Medium                     | High                      |
 
 ## 🚀 Server Startup Options
 
@@ -263,20 +265,20 @@ result = crawl_url("https://example.com", generate_markdown=True)
 
 ```javascript
 async function crawlUrl(url, options = {}) {
-  const response = await fetch('http://127.0.0.1:8000/tools/crawl_url', {
-    method: 'POST',
+  const response = await fetch("http://127.0.0.1:8000/tools/crawl_url", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ url, ...options })
+    body: JSON.stringify({ url, ...options }),
   });
-  
+
   return await response.json();
 }
 
 // Example usage
-const result = await crawlUrl('https://example.com', { 
-  generate_markdown: true 
+const result = await crawlUrl("https://example.com", {
+  generate_markdown: true,
 });
 ```
 
@@ -348,6 +350,7 @@ curl -X POST "http://127.0.0.1:8000/tools/crawl_url" \
 ### Common Issues
 
 **Port Already in Use:**
+
 ```bash
 # Find process using port
 lsof -i :8000
@@ -357,11 +360,13 @@ kill -9 <PID>
 ```
 
 **Connection Refused:**
+
 - Check if server is running
 - Verify port and host configuration
 - Check firewall settings
 
 **JSON Parse Errors:**
+
 - Ensure proper Content-Type headers
 - Validate JSON payload format
 - Check for special characters in data

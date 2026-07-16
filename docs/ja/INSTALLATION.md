@@ -123,11 +123,13 @@ uv sync
 ### クイックセットアップ（従来方式）
 
 **Linux/macOS:**
+
 ```bash
 ./setup.sh
 ```
 
 **Windows:**
+
 ```cmd
 setup_windows.bat
 ```
@@ -135,6 +137,7 @@ setup_windows.bat
 ### 手動セットアップ
 
 1. **仮想環境の作成と有効化:**
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # Linux/macOS
@@ -143,6 +146,7 @@ venv\Scripts\activate.bat  # Windows
 ```
 
 2. **Python依存関係のインストール:**
+
 ```bash
 pip install -r requirements.txt  # 安定性のため固定バージョンをインストール
 ```
@@ -150,6 +154,7 @@ pip install -r requirements.txt  # 安定性のため固定バージョンをイ
 3. **Playwrightブラウザ依存関係のインストール（Linux/WSL）:**
 
 **Ubuntu 24.04 LTS:**
+
 ```bash
 sudo apt update && sudo apt install -y \
   libnss3 libatk-bridge2.0-0 libxss1 libasound2t64 \
@@ -159,6 +164,7 @@ sudo apt update && sudo apt install -y \
 ```
 
 **その他のLinuxディストリビューション:**
+
 ```bash
 sudo apt-get update
 sudo apt-get install libnss3 libnspr4 libasound2 libatk-bridge2.0-0 libdrm2 libgtk-3-0 libgbm1
@@ -192,16 +198,19 @@ sudo apt-get install libnss3 libnspr4 libasound2 libatk-bridge2.0-0 libdrm2 libg
 ### 設定ファイルの場所
 
 **Windows:**
+
 ```
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
 **macOS:**
+
 ```
 ~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
 **Linux:**
+
 ```
 ~/.config/claude-desktop/claude_desktop_config.json
 ```
@@ -221,20 +230,24 @@ sudo apt-get install libnss3 libnspr4 libasound2 libatk-bridge2.0-0 libdrm2 libg
 ### 特定のエラー解決方法
 
 **ModuleNotFoundError:**
+
 - 仮想環境が有効化されていることを確認
 - PYTHONPATHが正しく設定されていることを確認
 - 依存関係をインストール: `pip install -r requirements.txt`
 
 **Playwrightブラウザエラー（Ubuntu 24.04 LTS）:**
+
 - t64ライブラリ名を使用: `sudo apt-get install libnss3 libnspr4 libasound2t64 libgtk-3-0t64`
 - t64移行により手動インストールが必要（前提条件セクションを参照）
 - WSLの場合: X11転送またはヘッドレスモードを確認
 
 **Playwrightブラウザエラー（その他のLinux）:**
+
 - システム依存関係をインストール: `sudo apt-get install libnss3 libnspr4 libasound2`
 - WSLの場合: X11転送またはヘッドレスモードを確認
 
 **JSON解析エラー:**
+
 - **解決済み**: 最新バージョンで出力抑制機能が実装されました
 - crawl4aiの冗長出力は適切に抑制されています
 

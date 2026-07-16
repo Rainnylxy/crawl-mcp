@@ -113,11 +113,13 @@ curl -X POST "http://127.0.0.1:8001/tools/crawl_url" \
 ### 使用方法
 
 **STDIOトランスポート（デフォルト）:**
+
 ```bash
 python -m crawl4ai_mcp.server
 ```
 
 **Claude Desktop設定:**
+
 ```json
 {
   "mcpServers": {
@@ -139,13 +141,13 @@ python -m crawl4ai_mcp.server
 
 ## 📊 プロトコル比較
 
-| 機能 | Pure StreamableHTTP | Legacy HTTP (SSE) | STDIO |
-|---------|---------------------|-------------------|-------|
-| レスポンス形式 | プレーンJSON | Server-Sent Events | バイナリ |
-| 設定の複雑さ | 低（URLのみ） | 低（URLのみ） | 高（プロセス管理） |
-| デバッグの容易さ | 高（curl互換） | 中（SSEパーサーが必要） | 低 |
-| 独立性 | 高 | 高 | 低 |
-| パフォーマンス | 高 | 中 | 高 |
+| 機能             | Pure StreamableHTTP | Legacy HTTP (SSE)       | STDIO              |
+| ---------------- | ------------------- | ----------------------- | ------------------ |
+| レスポンス形式   | プレーンJSON        | Server-Sent Events      | バイナリ           |
+| 設定の複雑さ     | 低（URLのみ）       | 低（URLのみ）           | 高（プロセス管理） |
+| デバッグの容易さ | 高（curl互換）      | 中（SSEパーサーが必要） | 低                 |
+| 独立性           | 高                  | 高                      | 低                 |
+| パフォーマンス   | 高                  | 中                      | 高                 |
 
 ## 🚀 サーバー起動オプション
 
@@ -263,20 +265,20 @@ result = crawl_url("https://example.com", generate_markdown=True)
 
 ```javascript
 async function crawlUrl(url, options = {}) {
-  const response = await fetch('http://127.0.0.1:8000/tools/crawl_url', {
-    method: 'POST',
+  const response = await fetch("http://127.0.0.1:8000/tools/crawl_url", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ url, ...options })
+    body: JSON.stringify({ url, ...options }),
   });
-  
+
   return await response.json();
 }
 
 // 使用例
-const result = await crawlUrl('https://example.com', { 
-  generate_markdown: true 
+const result = await crawlUrl("https://example.com", {
+  generate_markdown: true,
 });
 ```
 
@@ -348,6 +350,7 @@ curl -X POST "http://127.0.0.1:8000/tools/crawl_url" \
 ### よくある問題
 
 **ポートが既に使用中:**
+
 ```bash
 # ポートを使用しているプロセスを検索
 lsof -i :8000
@@ -357,11 +360,13 @@ kill -9 <PID>
 ```
 
 **接続拒否:**
+
 - サーバーが実行されているか確認
 - ポートとホスト設定を確認
 - ファイアウォール設定を確認
 
 **JSON解析エラー:**
+
 - 適切なContent-Typeヘッダーを確認
 - JSONペイロード形式を検証
 - データ内の特殊文字を確認

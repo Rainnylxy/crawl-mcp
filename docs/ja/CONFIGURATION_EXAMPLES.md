@@ -7,6 +7,7 @@
 ### 基本UVX設定（推奨）
 
 **英語環境用:**
+
 ```json
 {
   "mcpServers": {
@@ -27,6 +28,7 @@
 ```
 
 **日本語環境用:**
+
 ```json
 {
   "mcpServers": {
@@ -73,6 +75,7 @@
 ### ローカル開発セットアップ
 
 **Linux/macOS:**
+
 ```json
 {
   "mcpServers": {
@@ -89,6 +92,7 @@
 ```
 
 **Windows:**
+
 ```json
 {
   "mcpServers": {
@@ -171,7 +175,14 @@
   "mcpServers": {
     "crawl4ai-http-custom": {
       "command": "python",
-      "args": ["-m", "crawl4ai_mcp.server", "--transport", "http", "--port", "8080"],
+      "args": [
+        "-m",
+        "crawl4ai_mcp.server",
+        "--transport",
+        "http",
+        "--port",
+        "8080"
+      ],
       "cwd": "/path/to/project",
       "env": {
         "PYTHONPATH": "/path/to/venv/lib/python3.11/site-packages"
@@ -355,16 +366,19 @@
 ### プラットフォーム固有のパス
 
 **Windows:**
+
 ```
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
 **macOS:**
+
 ```
 ~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
 **Linux:**
+
 ```
 ~/.config/claude-desktop/claude_desktop_config.json
 ```
@@ -372,6 +386,7 @@
 ### 設定ファイルセットアップコマンド
 
 **Linux/macOS:**
+
 ```bash
 # 設定ファイルをコピー
 cp configs/claude_desktop_config.json ~/.config/claude-desktop/claude_desktop_config.json
@@ -381,6 +396,7 @@ mkdir -p ~/.config/claude-desktop/
 ```
 
 **Windows PowerShell:**
+
 ```powershell
 # 設定ファイルをコピー
 Copy-Item "configs\claude_desktop_config.json" "$env:APPDATA\Claude\claude_desktop_config.json"
@@ -396,7 +412,7 @@ New-Item -ItemType Directory -Force -Path "$env:APPDATA\Claude"
 ```json
 {
   "wait_for_js": true,
-  "simulate_user": true, 
+  "simulate_user": true,
   "timeout": 30,
   "generate_markdown": true
 }

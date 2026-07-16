@@ -12,7 +12,7 @@ A comprehensive Model Context Protocol (MCP) server that wraps the powerful craw
 - **🌐 Universal Content Extraction**: Web pages, PDFs, Word docs, Excel, PowerPoint, ZIP archives
 - **🤖 AI-Powered Summarization**: Smart token reduction (up to 88.5%) while preserving essential information
 - **💾 Disk Persistence (token-saver)**: Save full results to disk and return slim metadata, so agents read them from a file on demand without spending context
-- **🎬 YouTube Integration**: Extract video transcripts and summaries without API keys  
+- **🎬 YouTube Integration**: Extract video transcripts and summaries without API keys
 - **⚡ Production Ready**: 19 specialized tools with comprehensive error handling
 
 ## 🚀 Quick Start
@@ -24,6 +24,7 @@ A comprehensive Model Context Protocol (MCP) server that wraps the powerful craw
 **Install system dependencies for Playwright:**
 
 **Ubuntu 24.04 LTS (Manual Required):**
+
 ```bash
 # Manual setup required due to t64 library transition
 sudo apt update && sudo apt install -y \
@@ -38,11 +39,13 @@ sudo playwright install-deps
 ```
 
 **Other Linux/macOS:**
+
 ```bash
 sudo bash scripts/prepare_for_uvx_playwright.sh
 ```
 
 **Windows (as Administrator):**
+
 ```powershell
 scripts/prepare_for_uvx_playwright.ps1
 ```
@@ -50,12 +53,14 @@ scripts/prepare_for_uvx_playwright.ps1
 ### Installation
 
 **UVX (Recommended - Easiest):**
+
 ```bash
 # After system preparation above - that's it!
 uvx --from git+https://github.com/walksoda/crawl-mcp crawl-mcp
 ```
 
 **Docker (Production-Ready):**
+
 ```bash
 # Clone the repository
 git clone https://github.com/walksoda/crawl-mcp
@@ -73,6 +78,7 @@ docker run -it crawl4ai-mcp
 ```
 
 **Docker Features:**
+
 - 🔧 **Multi-Browser Support**: Chromium, Firefox, Webkit headless browsers
 - 🐧 **Google Chrome**: Additional Chrome Stable for compatibility
 - ⚡ **Optimized Performance**: Pre-configured browser flags for Docker
@@ -104,6 +110,7 @@ Add to your `claude_desktop_config.json`:
 ```
 
 **Docker HTTP Mode:**
+
 ```json
 {
   "mcpServers": {
@@ -116,6 +123,7 @@ Add to your `claude_desktop_config.json`:
 ```
 
 **For Japanese interface:**
+
 ```json
 "env": {
   "CRAWL4AI_LANG": "ja"
@@ -124,14 +132,14 @@ Add to your `claude_desktop_config.json`:
 
 ## 📖 Documentation
 
-| Topic | Description |
-|-------|-------------|
-| **[Installation Guide](docs/INSTALLATION.md)** | Complete installation instructions for all platforms |
-| **[API Reference](docs/API_REFERENCE.md)** | Full tool documentation and usage examples |
-| **[Configuration Examples](docs/CONFIGURATION_EXAMPLES.md)** | Platform-specific setup configurations |
-| **[HTTP Integration](docs/HTTP_INTEGRATION.md)** | HTTP API access and integration methods |
-| **[Advanced Usage](docs/ADVANCED_USAGE.md)** | Power user techniques and workflows |
-| **[Development Guide](docs/DEVELOPMENT.md)** | Contributing and development setup |
+| Topic                                                        | Description                                          |
+| ------------------------------------------------------------ | ---------------------------------------------------- |
+| **[Installation Guide](docs/INSTALLATION.md)**               | Complete installation instructions for all platforms |
+| **[API Reference](docs/API_REFERENCE.md)**                   | Full tool documentation and usage examples           |
+| **[Configuration Examples](docs/CONFIGURATION_EXAMPLES.md)** | Platform-specific setup configurations               |
+| **[HTTP Integration](docs/HTTP_INTEGRATION.md)**             | HTTP API access and integration methods              |
+| **[Advanced Usage](docs/ADVANCED_USAGE.md)**                 | Power user techniques and workflows                  |
+| **[Development Guide](docs/DEVELOPMENT.md)**                 | Contributing and development setup                   |
 
 ### Language-Specific Documentation
 
@@ -141,33 +149,39 @@ Add to your `claude_desktop_config.json`:
 ## 🛠️ Tool Overview
 
 ### Web Crawling (3)
+
 - `crawl_url` - Extract web page content with JavaScript support
 - `deep_crawl_site` - Crawl multiple pages from a site with configurable depth
 - `crawl_url_with_fallback` - Crawl with fallback strategies for anti-bot sites
 
 ### Data Extraction (3)
+
 - `intelligent_extract` - Extract specific data from web pages using LLM
 - `extract_entities` - Extract entities (emails, phones, etc.) from web pages
 - `extract_structured_data` - Extract structured data using CSS selectors or LLM
 
 ### YouTube (4)
+
 - `extract_youtube_transcript` - Extract YouTube transcripts with timestamps
 - `batch_extract_youtube_transcripts` - Extract transcripts from multiple YouTube videos (max 3)
 - `get_youtube_video_info` - Get YouTube video metadata and transcript availability
 - `extract_youtube_comments` - Extract YouTube video comments with pagination
 
 ### Search (4)
+
 - `search_google` - Search Google with genre filtering
 - `batch_search_google` - Perform multiple Google searches (max 3)
 - `search_and_crawl` - Search Google and crawl top results
 - `get_search_genres` - Get available search genres
 
 ### File Processing (3)
+
 - `process_file` - Convert PDF, Word, Excel, PowerPoint, ZIP to markdown
 - `get_supported_file_formats` - Get supported file formats and capabilities
 - `enhanced_process_large_content` - Process large content with chunking and BM25 filtering
 
 ### Batch Operations (2)
+
 - `batch_crawl` - Crawl multiple URLs with fallback (max 3 URLs)
 - `multi_url_crawl` - Multi-URL crawl with pattern-based config (max 5 URL patterns)
 
@@ -176,6 +190,7 @@ Add to your `claude_desktop_config.json`:
 All information-gathering tools accept an optional `output_path` parameter that writes the full fetched content straight to disk and returns a slim metadata-only response. This lets an LLM fetch huge pages, long YouTube transcripts, or whole batches without blowing its context budget — read from the saved file only when needed.
 
 **How it works:**
+
 - Single-file tools (e.g. `crawl_url`, `extract_youtube_transcript`) write one `.md` (or `.json` for JSON-kind tools) — pass an absolute file path; the extension is auto-added if omitted. An existing regular file at that path is rejected unless `overwrite=true`.
 - Batch tools (`batch_crawl`, `multi_url_crawl`, `deep_crawl_site`, `search_and_crawl`, `batch_extract_youtube_transcripts`) expect an absolute **directory** path and write one `.md` per URL plus `index.json`. Any non-existent path is treated as a directory and created — including names containing dots such as `/tmp/run.v1`. If the path already exists as a regular file, the call is rejected. `batch_crawl` / `multi_url_crawl` keep their `list` return shape and embed an `output_file` key on each success item.
 - Request-dict tools (`search_google`, `batch_search_google`, `search_and_crawl`, `batch_extract_youtube_transcripts`) read the persistence keys directly from their request dict.
@@ -184,6 +199,7 @@ All information-gathering tools accept an optional `output_path` parameter that 
 - Batch dict tools (`deep_crawl_site`, `search_and_crawl`, `batch_extract_youtube_transcripts`) skip per-item persistence for items that report `success=false`; these still appear in `index.json` with `file: null` so callers can reason about the attempt list.
 
 **Markdown single-file example:**
+
 ```json
 {
   "tool": "crawl_url",
@@ -195,19 +211,21 @@ All information-gathering tools accept an optional `output_path` parameter that 
 ```
 
 **JSON structured extraction (extension auto-added):**
+
 ```json
 {
   "tool": "extract_structured_data",
   "arguments": {
     "url": "https://example.com/products",
     "extraction_type": "css",
-    "css_selectors": {"price": ".price", "name": "h1"},
+    "css_selectors": { "price": ".price", "name": "h1" },
     "output_path": "/tmp/crawl_out/products"
   }
 }
 ```
 
 **Batch directory mode:**
+
 ```json
 {
   "tool": "batch_crawl",
@@ -223,21 +241,25 @@ Each persisted markdown file begins with a YAML frontmatter block containing `ur
 ## 🎯 Common Use Cases
 
 **Content Research:**
+
 ```bash
 search_and_crawl → extract_structured_data → analysis
 ```
 
 **Documentation Mining:**
+
 ```bash
 deep_crawl_site → batch processing → extraction
 ```
 
 **Media Analysis:**
+
 ```bash
 extract_youtube_transcript → summarization workflow
 ```
 
 **Site Mapping:**
+
 ```bash
 batch_crawl → multi_url_crawl → comprehensive data
 ```
@@ -245,16 +267,19 @@ batch_crawl → multi_url_crawl → comprehensive data
 ## 🚨 Quick Troubleshooting
 
 **Installation Issues:**
+
 1. Re-run setup scripts with proper privileges
 2. Try development installation method
 3. Check browser dependencies are installed
 
 **Performance Issues:**
+
 - Use `wait_for_js: true` for JavaScript-heavy sites
 - Increase timeout for slow-loading pages
 - Use `extract_structured_data` for targeted extraction
 
 **Configuration Issues:**
+
 - Check JSON syntax in `claude_desktop_config.json`
 - Verify file paths are absolute
 - Restart Claude Desktop after configuration changes

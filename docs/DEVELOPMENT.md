@@ -35,20 +35,24 @@ crawl-mcp/
 ### Key Components
 
 **Server Implementation:**
+
 - `server.py` - FastMCP entry point and server configuration
 - `config.py` - Environment and configuration management
 
 **MCP Public Interface:**
+
 - `server_tools/` - MCP tool registrations exposed to clients
 - `server_tools/_shared.py` - Shared utilities and readOnlyHint annotations
 
 **Business Logic Layers:**
+
 - `core/` - Business logic implementations
 - `infra/` - Infrastructure (browser management, config)
 - `middleware/` - Request/response middleware
 - `processors/` - Content processors
 
 **Legacy:**
+
 - `tools/` - Legacy facade that delegates to `core/`
 
 ## 🔄 Development & Distribution
@@ -111,6 +115,7 @@ git push origin main --tags
 ### Prerequisites
 
 **System Dependencies:**
+
 ```bash
 # Linux/macOS
 sudo bash scripts/prepare_for_uvx_playwright.sh
@@ -122,6 +127,7 @@ powershell -ExecutionPolicy Bypass -File scripts/prepare_for_uvx_playwright.ps1
 ### Local Development Setup
 
 **Method 1: UV Package Manager (Recommended)**
+
 ```bash
 git clone https://github.com/walksoda/crawl-mcp.git
 cd crawl-mcp
@@ -131,6 +137,7 @@ source .venv/bin/activate  # Linux/macOS
 ```
 
 **Method 2: Traditional Virtual Environment**
+
 ```bash
 git clone https://github.com/walksoda/crawl-mcp.git
 cd crawl-mcp
@@ -159,6 +166,7 @@ python -c "import sys; print(sys.prefix)"  # Should show venv path
 ### Test Commands
 
 **Basic Server Testing:**
+
 ```bash
 # Test main server startup
 python -m crawl4ai_mcp.server
@@ -171,6 +179,7 @@ claude mcp test crawl4ai
 ```
 
 **HTTP API Testing:**
+
 ```bash
 # Pure StreamableHTTP test
 python examples/pure_http_test.py
@@ -185,6 +194,7 @@ curl http://127.0.0.1:8000/health
 ```
 
 **YouTube Integration Testing:**
+
 ```bash
 # Direct API test
 python test_youtube_transcript_direct.py "https://www.youtube.com/watch?v=VIDEO_ID"
@@ -196,6 +206,7 @@ python test_mcp_youtube.py
 ### Pre-commit Quality Checks
 
 **Required before commits:**
+
 ```bash
 # 1. Lint commit messages with textlint
 npx textlint commit-message.txt
@@ -236,6 +247,7 @@ export PYTHONUNBUFFERED=1
 ### Debug Configuration
 
 **High-verbosity debugging:**
+
 ```json
 {
   "mcpServers": {
@@ -258,6 +270,7 @@ export PYTHONUNBUFFERED=1
 ### Code Style and Standards
 
 **Python Code Standards:**
+
 - Follow PEP 8 style guidelines
 - Use type hints where appropriate
 - Document functions with docstrings
@@ -265,6 +278,7 @@ export PYTHONUNBUFFERED=1
 - Use async/await for I/O operations
 
 **Commit Message Standards:**
+
 - English language only
 - No emojis in commit messages
 - Format: `type: brief description`
@@ -278,6 +292,7 @@ export PYTHONUNBUFFERED=1
 ### Docker Container Management
 
 **Building Docker Images:**
+
 ```bash
 # Build development image
 docker build -t crawl4ai-mcp:dev .
@@ -290,6 +305,7 @@ docker images | grep crawl4ai-mcp
 ```
 
 **Testing Docker Containers:**
+
 ```bash
 # Test STDIO mode (default)
 docker-compose up --build
@@ -302,6 +318,7 @@ docker run -it crawl4ai-mcp:latest
 ```
 
 **Version Management:**
+
 ```bash
 # Update version in pyproject.toml
 vim pyproject.toml
@@ -320,6 +337,7 @@ git push origin v0.1.4
 ### UVX Compatibility
 
 **pyproject.toml Configuration:**
+
 ```toml
 [build-system]
 requires = ["hatchling"]
@@ -345,6 +363,7 @@ Note: `pyproject.toml` is the source of truth for dependencies. There is no `req
 ### Common Development Issues
 
 **Import Errors:**
+
 ```bash
 # Ensure virtual environment is active
 source venv/bin/activate
@@ -357,7 +376,8 @@ pip install -e .
 ```
 
 **Browser Issues:**
-```bash 
+
+```bash
 # Reinstall Playwright browsers
 python -m playwright install chromium
 
@@ -369,6 +389,7 @@ python -c "from playwright.sync_api import sync_playwright; print('Browser check
 ```
 
 **Server Startup Issues:**
+
 ```bash
 # Check port availability
 lsof -i :8000
@@ -384,6 +405,7 @@ python -m crawl4ai_mcp.server
 ### Performance Profiling
 
 **Memory and CPU Monitoring:**
+
 ```bash
 # Monitor memory usage
 python -m memory_profiler crawl4ai_mcp/server.py
@@ -396,6 +418,7 @@ python -m pstats profile.prof
 ```
 
 **Request Tracing:**
+
 ```bash
 # Enable request tracing
 export CRAWL4AI_TRACE=1
@@ -410,6 +433,7 @@ tail -f server.log | grep -E "(REQUEST|RESPONSE|ERROR)"
 ### Development Workflow
 
 1. **Fork and Clone**
+
    ```bash
    git clone https://github.com/your-username/crawl-mcp.git
    cd crawl-mcp
@@ -417,11 +441,13 @@ tail -f server.log | grep -E "(REQUEST|RESPONSE|ERROR)"
    ```
 
 2. **Create Feature Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 3. **Develop and Test**
+
    ```bash
    # Make changes to crawl4ai_mcp/server.py
    # Test thoroughly
@@ -429,22 +455,24 @@ tail -f server.log | grep -E "(REQUEST|RESPONSE|ERROR)"
    ```
 
 4. **Test and Build**
+
    ```bash
    # Test with Docker
    docker-compose up --build
-   
+
    # Test UVX installation
    uvx --from git+https://github.com/walksoda/crawl-mcp crawl-mcp --help
    ```
 
 5. **Quality Checks**
+
    ```bash
    # Run tests
    python examples/pure_http_test.py
-   
+
    # Test Docker build
    docker build -t crawl4ai-mcp:test .
-   
+
    # Lint commit message
    npx textlint commit-message.txt
    ```
@@ -459,6 +487,7 @@ tail -f server.log | grep -E "(REQUEST|RESPONSE|ERROR)"
 ### Code Review Process
 
 **Before Submitting:**
+
 - [ ] Changes tested in development environment
 - [ ] Docker containers build successfully
 - [ ] Documentation updated if needed
@@ -466,6 +495,7 @@ tail -f server.log | grep -E "(REQUEST|RESPONSE|ERROR)"
 - [ ] No breaking changes without discussion
 
 **Review Criteria:**
+
 - Code quality and style
 - Test coverage
 - Documentation completeness
@@ -478,6 +508,7 @@ tail -f server.log | grep -E "(REQUEST|RESPONSE|ERROR)"
 ### Development Metrics
 
 **Server Performance:**
+
 ```bash
 # Request processing time
 grep "Processing time" server.log | awk '{print $4}' | sort -n
@@ -491,6 +522,7 @@ grep -c "ERROR" server.log
 ```
 
 **Tool Usage Statistics:**
+
 ```bash
 # Most used tools
 grep "Tool called:" server.log | awk '{print $3}' | sort | uniq -c | sort -nr

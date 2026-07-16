@@ -7,6 +7,7 @@ Comprehensive configuration examples for different installation methods, platfor
 ### Basic UVX Configuration (Recommended)
 
 **For English environment:**
+
 ```json
 {
   "mcpServers": {
@@ -27,6 +28,7 @@ Comprehensive configuration examples for different installation methods, platfor
 ```
 
 **For Japanese environment:**
+
 ```json
 {
   "mcpServers": {
@@ -73,6 +75,7 @@ Comprehensive configuration examples for different installation methods, platfor
 ### Local Development Setup
 
 **Linux/macOS:**
+
 ```json
 {
   "mcpServers": {
@@ -89,6 +92,7 @@ Comprehensive configuration examples for different installation methods, platfor
 ```
 
 **Windows:**
+
 ```json
 {
   "mcpServers": {
@@ -171,7 +175,14 @@ Comprehensive configuration examples for different installation methods, platfor
   "mcpServers": {
     "crawl4ai-http-custom": {
       "command": "python",
-      "args": ["-m", "crawl4ai_mcp.server", "--transport", "http", "--port", "8080"],
+      "args": [
+        "-m",
+        "crawl4ai_mcp.server",
+        "--transport",
+        "http",
+        "--port",
+        "8080"
+      ],
       "cwd": "/path/to/project",
       "env": {
         "PYTHONPATH": "/path/to/venv/lib/python3.11/site-packages"
@@ -355,16 +366,19 @@ Comprehensive configuration examples for different installation methods, platfor
 ### Platform-Specific Paths
 
 **Windows:**
+
 ```
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
 **macOS:**
+
 ```
 ~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
 **Linux:**
+
 ```
 ~/.config/claude-desktop/claude_desktop_config.json
 ```
@@ -372,6 +386,7 @@ Comprehensive configuration examples for different installation methods, platfor
 ### Configuration File Setup Commands
 
 **Linux/macOS:**
+
 ```bash
 # Copy configuration file
 cp configs/claude_desktop_config.json ~/.config/claude-desktop/claude_desktop_config.json
@@ -381,6 +396,7 @@ mkdir -p ~/.config/claude-desktop/
 ```
 
 **Windows PowerShell:**
+
 ```powershell
 # Copy configuration file
 Copy-Item "configs\claude_desktop_config.json" "$env:APPDATA\Claude\claude_desktop_config.json"
@@ -396,7 +412,7 @@ New-Item -ItemType Directory -Force -Path "$env:APPDATA\Claude"
 ```json
 {
   "wait_for_js": true,
-  "simulate_user": true, 
+  "simulate_user": true,
   "timeout": 30,
   "generate_markdown": true
 }

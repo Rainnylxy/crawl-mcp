@@ -7,6 +7,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ### Deep Site Exploration
 
 **Multi-depth crawling with strategic filtering:**
+
 ```json
 {
   "url": "https://docs.example.com",
@@ -18,6 +19,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ```
 
 **JavaScript-heavy sites optimization:**
+
 ```json
 {
   "url": "https://spa-application.com",
@@ -30,6 +32,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ### Fallback Strategies for Difficult Sites
 
 **Multi-strategy crawling with automatic fallbacks:**
+
 ```json
 {
   "url": "https://protected-site.com",
@@ -40,6 +43,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ```
 
 **Using crawl_url_with_fallback for maximum reliability:**
+
 - Automatically tries multiple strategies
 - Handles anti-bot protection
 - Provides detailed failure analysis
@@ -50,6 +54,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ### Intelligent Content Extraction
 
 **Semantic understanding with custom instructions:**
+
 ```json
 {
   "url": "https://research-paper.com",
@@ -63,6 +68,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ```
 
 **Multi-provider LLM configuration:**
+
 ```json
 {
   "mcpServers": {
@@ -81,6 +87,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ### Auto-Summarization for Large Content
 
 **Configuration for different content types:**
+
 ```json
 {
   "auto_summarize": true,
@@ -93,6 +100,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ```
 
 **Summary length optimization:**
+
 - `"short"`: 1-2 paragraphs (500-1000 tokens)
 - `"medium"`: 3-5 paragraphs (1500-3000 tokens)
 - `"long"`: Comprehensive analysis (5000-10000 tokens)
@@ -102,6 +110,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ### Large-Scale Crawling Workflows
 
 **Batch crawling with URL management:**
+
 ```json
 {
   "urls": [
@@ -121,6 +130,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ```
 
 **YouTube transcript batch processing:**
+
 ```json
 {
   "request": {
@@ -140,6 +150,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ### Search-and-Crawl Workflows
 
 **Competitive analysis pipeline:**
+
 ```json
 {
   "search_query": "enterprise API documentation best practices 2024",
@@ -152,6 +163,7 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ```
 
 **Content research workflow:**
+
 ```json
 {
   "request": {
@@ -172,24 +184,28 @@ Advanced patterns, techniques, and workflows for power users of the Crawl4AI MCP
 ### Multi-Stage Content Analysis
 
 **1. Discovery Phase:**
+
 ```bash
 # Search for relevant content
 search_google: "topic keywords research papers"
 ```
 
 **2. Collection Phase:**
+
 ```bash
 # Crawl top results with fallback protection
 search_and_crawl: top 5 results → generate comprehensive analysis
 ```
 
 **3. Analysis Phase:**
+
 ```bash
 # Extract structured insights
 extract_structured_data: "methodology, findings, implications"
 ```
 
 **4. Synthesis Phase:**
+
 ```bash
 # Batch process related content
 batch_crawl: related URLs → auto-summarize → comparative analysis
@@ -198,6 +214,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Site Documentation Mapping
 
 **Complete documentation extraction:**
+
 ```json
 {
   "url": "https://api-docs.example.com",
@@ -215,6 +232,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Entity Extraction Workflows
 
 **Contact information mining:**
+
 ```json
 {
   "url": "https://company-directory.com",
@@ -234,6 +252,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Memory and Processing Management
 
 **Large document handling:**
+
 ```json
 {
   "chunk_content": true,
@@ -246,6 +265,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ```
 
 **Timeout optimization strategies:**
+
 ```json
 {
   "timeout": 120,
@@ -257,11 +277,13 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Concurrent Processing Control
 
 **Batch operation limits:**
+
 - `max_concurrent`: 3 (default, stable)
 - `max_concurrent`: 5 (maximum, may impact stability)
 - `max_concurrent`: 1 (sequential, most reliable)
 
 **Rate limiting considerations:**
+
 - YouTube API: 3 concurrent requests
 - Google Search: 2 concurrent queries
 - General crawling: 5 concurrent URLs
@@ -271,6 +293,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Robust Configuration Patterns
 
 **Production-ready setup with error recovery:**
+
 ```json
 {
   "mcpServers": {
@@ -293,6 +316,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ```
 
 **Fallback strategy implementation:**
+
 1. **Primary attempt**: Standard crawl_url
 2. **Fallback 1**: crawl_url_with_fallback
 3. **Fallback 2**: Simplified parameters (no JS, basic extraction)
@@ -301,6 +325,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Monitoring and Diagnostics
 
 **Health check configuration:**
+
 ```json
 {
   "url": "http://127.0.0.1:8000/health",
@@ -311,6 +336,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ```
 
 **Debug configuration for troubleshooting:**
+
 ```json
 {
   "env": {
@@ -327,6 +353,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Multi-Stage Filtering Pipeline
 
 **BM25 + LLM combination:**
+
 ```json
 {
   "content_filter": "bm25",
@@ -337,6 +364,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ```
 
 **Hierarchical content processing:**
+
 ```json
 {
   "filtering_strategy": "llm",
@@ -352,6 +380,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Advanced Metrics Collection
 
 **Performance tracking:**
+
 - Processing time per URL
 - Success/failure rates
 - Token usage by operation
@@ -359,6 +388,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 - Memory usage patterns
 
 **Content quality metrics:**
+
 - Extraction completeness
 - Relevance scoring
 - Duplicate detection rates
@@ -367,6 +397,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### Custom Reporting Workflows
 
 **Comprehensive site analysis:**
+
 ```bash
 1. deep_crawl_site → structural mapping
 2. extract_structured_data → content categorization
@@ -380,6 +411,7 @@ batch_crawl: related URLs → auto-summarize → comparative analysis
 ### API Integration Examples
 
 **Python integration with error handling:**
+
 ```python
 import asyncio
 import logging
@@ -387,13 +419,13 @@ from typing import Optional, Dict, Any
 
 async def robust_crawl_workflow(url: str, max_retries: int = 3) -> Optional[Dict[Any, Any]]:
     """Advanced crawling with automatic fallbacks and retry logic."""
-    
+
     strategies = [
         {"wait_for_js": True, "timeout": 60},
         {"wait_for_js": False, "timeout": 30},
         {"use_undetected_browser": True, "timeout": 15}
     ]
-    
+
     for attempt, strategy in enumerate(strategies):
         try:
             result = await crawl_url(url, **strategy)
@@ -403,7 +435,7 @@ async def robust_crawl_workflow(url: str, max_retries: int = 3) -> Optional[Dict
             logging.warning(f"Attempt {attempt + 1} failed: {e}")
             if attempt < len(strategies) - 1:
                 await asyncio.sleep(2 ** attempt)  # Exponential backoff
-            
+
     # Final fallback using crawl_url_with_fallback
     try:
         return await crawl_url_with_fallback(url)
@@ -413,30 +445,31 @@ async def robust_crawl_workflow(url: str, max_retries: int = 3) -> Optional[Dict
 ```
 
 **Node.js batch processing:**
+
 ```javascript
 async function processUrlBatch(urls, options = {}) {
   const batchSize = options.batchSize || 5;
   const results = [];
-  
+
   for (let i = 0; i < urls.length; i += batchSize) {
     const batch = urls.slice(i, i + batchSize);
-    
+
     try {
       const batchResults = await Promise.allSettled(
-        batch.map(url => crawlUrl(url, options))
+        batch.map((url) => crawlUrl(url, options)),
       );
-      
+
       results.push(...batchResults);
-      
+
       // Rate limiting delay
       if (i + batchSize < urls.length) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     } catch (error) {
       console.error(`Batch processing error:`, error);
     }
   }
-  
+
   return results;
 }
 ```
@@ -446,6 +479,7 @@ async function processUrlBatch(urls, options = {}) {
 ### Complex Issue Resolution
 
 **Memory management for large operations:**
+
 ```json
 {
   "chunk_content": true,
@@ -457,6 +491,7 @@ async function processUrlBatch(urls, options = {}) {
 ```
 
 **Network and connectivity issues:**
+
 ```json
 {
   "user_agent": "Mozilla/5.0 (compatible; Bot/1.0)",
@@ -474,6 +509,7 @@ async function processUrlBatch(urls, options = {}) {
 ### Performance Profiling
 
 **Identifying bottlenecks:**
+
 1. Enable DEBUG logging
 2. Monitor token usage patterns
 3. Track processing times by operation
